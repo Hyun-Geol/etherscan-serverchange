@@ -1,10 +1,11 @@
 const express = require('express');
-var app = express(); 
+const app = express(); 
+const session = require('express-session')
 const logger = require('morgan');
-var web3 = require('./config/web3Server')
+
 const bodyParser = require('body-parser');
 
-global.web3;
+
 
 const errRouter = require('./routes/error');
 const indexRouter = require('./routes/index');
@@ -15,6 +16,11 @@ const addressRouter = require('./routes/address');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended: false})); 
 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+  }))
 app.use('/public', express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
