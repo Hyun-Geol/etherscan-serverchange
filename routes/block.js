@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const Web3 = require('web3');
 const bodyParser = require('body-parser');
 const addComma = require('../public/js/addComma');
-const Web3 = require('web3');
+const web3Server = require('../config/web3Server')
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/:pageId', async function(req, res){
-    let web3 = new Web3(new Web3.providers.HttpProvider(req.session.web3));
+    web3 = web3Server.web3Ropsten;
+    if (req.session.web3) {
+        web3 = new Web3(new Web3.providers.HttpProvider(req.session.web3))
+    }
     let pageId = req.params.pageId;
 
     await web3.eth.getBlockNumber(function (err, rtn) {
