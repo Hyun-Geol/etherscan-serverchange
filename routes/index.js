@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Web3 = require('web3');
-// const wi = require('../utils/webInterface')
 const web3Server = require('../config/web3Server')
 let g_network = "Ropsten"
 
-// if (!web3) {
-//     web3 = web3Server.web3Ropsten;
-// }
 
 const getBlockNumber = async () => {
     const blockNumber = await web3.eth.getBlockNumber()
@@ -168,19 +164,7 @@ router.post('/changeNetwork', async function (req, res) {
         req.session.save(function () { })
         return res.json({})
     }
-    // else {
-    //     web3 = web3Server.web3Ropsten
-    //     global.web3 = web3Server.web3Ropsten
-    //     return res.send({})
-    // }
-
 })
 
 
 module.exports = router;
-
-// count = 0 
-// while (count > 5) {
-//     data =  getdata()
-//     count += data.length
-// }
